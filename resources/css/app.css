@@ -1,0 +1,78 @@
+@import 'tailwindcss';
+@import '../../vendor/livewire/flux/dist/flux.css';
+
+@source "../views";
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../vendor/livewire/flux-pro/stubs/**/*.blade.php';
+@source '../../vendor/livewire/flux/stubs/**/*.blade.php';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+
+    /* Ervin Tile Company: deep navy (matches the logo background) with a
+       warm brass accent — evokes stone/tile showroom materials rather than
+       a generic SaaS blue. */
+    --color-zinc-50: #f7f7f8;
+    --color-zinc-100: #eceef1;
+    --color-zinc-200: #d7dbe1;
+    --color-zinc-300: #b3bac5;
+    --color-zinc-400: #8690a0;
+    --color-zinc-500: #656f82;
+    --color-zinc-600: #4e566a;
+    --color-zinc-700: #3b4154;
+    --color-zinc-800: #242938;
+    --color-zinc-900: #121724;
+    --color-zinc-950: #090c14;
+
+    --color-navy: #0b1120;
+    --color-navy-light: #141b2e;
+    --color-brass: #b08a4e;
+    --color-brass-light: #d4af7a;
+    --color-stone: #f3efe7;
+
+    --color-accent: #9c7639;
+    --color-accent-content: #9c7639;
+    --color-accent-foreground: var(--color-white);
+}
+
+@layer theme {
+    .dark {
+        --color-accent: #d4af7a;
+        --color-accent-content: #d4af7a;
+        --color-accent-foreground: var(--color-navy);
+    }
+}
+
+@layer base {
+
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-200, currentColor);
+    }
+}
+
+[data-flux-field] {
+    @apply grid gap-2;
+}
+
+[data-flux-label] {
+    @apply  !mb-0 !leading-tight;
+}
+
+input:focus[data-flux-control],
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+}
+
+/* Brand display type: bold serif for headlines, matching the logo's serif
+   wordmark ("ERVIN"), sans for everything else. */
+.font-display {
+    font-family: var(--font-serif);
+}
