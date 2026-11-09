@@ -3,7 +3,7 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-stone font-sans text-zinc-800 antialiased">
+    <body class="min-h-screen bg-paper font-sans text-ink antialiased">
         <x-marketing.nav />
 
         <main>
@@ -12,6 +12,7 @@
 
         <x-marketing.footer />
 
+        @stack('scripts')
         @fluxScripts
     </body>
 </html>

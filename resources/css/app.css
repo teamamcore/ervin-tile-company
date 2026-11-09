@@ -9,41 +9,19 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+    --font-sans: 'Mulish', 'Avenir Next', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-serif: 'Tenor Sans', 'Didot', Palatino, serif;
 
-    /* Ervin Tile Company: deep navy (matches the logo background) with a
-       warm brass accent — evokes stone/tile showroom materials rather than
-       a generic SaaS blue. */
-    --color-zinc-50: #f7f7f8;
-    --color-zinc-100: #eceef1;
-    --color-zinc-200: #d7dbe1;
-    --color-zinc-300: #b3bac5;
-    --color-zinc-400: #8690a0;
-    --color-zinc-500: #656f82;
-    --color-zinc-600: #4e566a;
-    --color-zinc-700: #3b4154;
-    --color-zinc-800: #242938;
-    --color-zinc-900: #121724;
-    --color-zinc-950: #090c14;
+    /* Atelier: quiet and photographic. Near-white page, black/gray type,
+       the photograph is the only strong color. No accent color. */
+    --color-paper: #fbfbfa;
+    --color-ink: #141414;
+    --color-muted: #6a6a66;
+    --color-line: #e6e6e3;
 
-    --color-navy: #0b1120;
-    --color-navy-light: #141b2e;
-    --color-brass: #b08a4e;
-    --color-brass-light: #d4af7a;
-    --color-stone: #f3efe7;
-
-    --color-accent: #9c7639;
-    --color-accent-content: #9c7639;
+    --color-accent: var(--color-ink);
+    --color-accent-content: var(--color-ink);
     --color-accent-foreground: var(--color-white);
-}
-
-@layer theme {
-    .dark {
-        --color-accent: #d4af7a;
-        --color-accent-content: #d4af7a;
-        --color-accent-foreground: var(--color-navy);
-    }
 }
 
 @layer base {
@@ -68,11 +46,102 @@
 input:focus[data-flux-control],
 textarea:focus[data-flux-control],
 select:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+    @apply outline-hidden ring-2 ring-ink ring-offset-2 ring-offset-paper;
 }
 
-/* Brand display type: bold serif for headlines, matching the logo's serif
-   wordmark ("ERVIN"), sans for everything else. */
+/* Display type: Tenor Sans for headlines, service names, step names, the
+   phone number, and gallery titles — matching the Atelier design system. */
 .font-display {
     font-family: var(--font-serif);
+    font-weight: 400;
 }
+
+/* Atelier component classes, ported from the "Atelier" style direction
+   signed off on in ervin-tile-designs/atelier. Kept as plain CSS rather
+   than utility soup because the system is a small, fixed set of parts
+   (hairline button, kicker, service rows, steps, shots) reused identically
+   across every page. */
+.kicker {
+    margin: 0 0 14px;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+}
+
+.btn-hairline {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0 14px;
+    gap: 10px;
+    background: transparent;
+    color: var(--color-ink);
+    box-shadow: inset 0 0 0 1px var(--color-ink);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border-radius: 0;
+}
+.btn-hairline:hover { background: var(--color-ink); color: #fff; }
+.btn-hairline.on-photo { color: #fff; box-shadow: inset 0 0 0 1px #fff; }
+.btn-hairline.on-photo:hover { background: #fff; color: var(--color-ink); }
+.btn-hairline.fill { background: #fff; color: var(--color-ink); box-shadow: none; }
+.btn-hairline.fill:hover { background: var(--color-paper); }
+
+.names a {
+    display: block;
+    padding: 22px 0;
+    border-top: 1px solid var(--color-line);
+    color: inherit;
+    text-decoration: none;
+}
+.names a:last-child { border-bottom: 1px solid var(--color-line); }
+.names h3 { margin: 0; font-size: 28px; letter-spacing: 0.06em; }
+.names p { margin: 6px auto 0; max-width: 36rem; color: var(--color-muted); }
+.names a:hover h3 { text-decoration: underline; text-underline-offset: 6px; }
+
+.steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; text-align: left; }
+.steps-grid span { display: block; font-size: 11px; letter-spacing: 0.2em; margin-bottom: 8px; color: var(--color-muted); }
+.steps-grid h3 { margin: 0 0 8px; font-family: var(--font-serif); font-size: 20px; font-weight: 400; letter-spacing: 0.04em; }
+.steps-grid p { margin: 0; color: var(--color-muted); font-size: 15px; }
+@media (max-width: 800px) { .steps-grid { grid-template-columns: 1fr; } }
+
+.page-head { max-width: 720px; margin: 0 auto; padding: 72px 28px 8px; text-align: center; }
+.page-head h1 { margin: 0; font-family: var(--font-serif); font-size: clamp(40px, 6vw, 68px); letter-spacing: 0.04em; }
+@media (max-width: 800px) { .page-head { text-align: left; } }
+
+.filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 16px; padding: 20px 28px 8px; }
+.filters button {
+    font: inherit;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    background: none;
+    border: 0;
+    color: var(--color-muted);
+    padding: 8px 0;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+}
+.filters button[aria-pressed="true"] { color: var(--color-ink); border-bottom-color: var(--color-ink); }
+@media (max-width: 800px) { .filters { justify-content: flex-start; } }
+
+.shot { margin: 0 0 72px; text-align: center; }
+.shot[hidden] { display: none !important; }
+.shot img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.shot h2 {
+    margin: 14px 0 0;
+    font-family: var(--font-serif);
+    font-size: 18px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+.shot p { margin: 4px 0 0; color: var(--color-muted); font-size: 14px; }
+
+.qa + .qa { border-top: 1px solid var(--color-line); }
+.qa { padding: 26px 0; }
+.qa h3 { margin: 0 0 8px; font-family: var(--font-serif); font-size: 20px; font-weight: 400; letter-spacing: 0.04em; }
+.qa p { margin: 0; color: var(--color-muted); }

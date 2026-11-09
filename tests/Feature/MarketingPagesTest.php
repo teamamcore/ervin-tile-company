@@ -6,7 +6,7 @@ it('renders the home page', function () {
     $this->get(route('home'))
         ->assertOk()
         ->assertSee('Ervin Tile Company')
-        ->assertSee('Get a Free Quote');
+        ->assertSee('Material first.');
 });
 
 it('renders the services page with every service', function () {
@@ -17,20 +17,33 @@ it('renders the services page with every service', function () {
     }
 });
 
+it('renders the how it works page', function () {
+    $this->get(route('how-it-works'))
+        ->assertOk()
+        ->assertSee('Consultation')
+        ->assertSee('Final walkthrough');
+});
+
 it('renders the gallery page', function () {
     $this->get(route('gallery'))
         ->assertOk()
-        ->assertSee('Our Work');
+        ->assertSee('One room at a time.');
 });
 
 it('renders the about page', function () {
     $this->get(route('about'))
         ->assertOk()
-        ->assertSee('Craftsmanship You Can Trust');
+        ->assertSee('Craftsmanship you can trust.');
+});
+
+it('renders the faq page', function () {
+    $this->get(route('faq'))
+        ->assertOk()
+        ->assertSee('Common questions.');
 });
 
 it('renders the contact page', function () {
     $this->get(route('contact'))
         ->assertOk()
-        ->assertSee('Get a Free Quote');
+        ->assertSee('Tell us about the room.');
 });

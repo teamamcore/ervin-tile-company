@@ -10,7 +10,7 @@ return [
     'email' => env('BUSINESS_EMAIL', 'info@ervintile.com'),
     'address' => env('BUSINESS_ADDRESS', 'Serving the Greater Metro Area'),
     'service_area' => env('BUSINESS_SERVICE_AREA', 'Greater Metro Area & Surrounding Communities'),
-    'hours' => env('BUSINESS_HOURS', 'Mon–Fri: 8am–5pm, Sat: by appointment'),
+    'hours' => env('BUSINESS_HOURS', 'Mon–Fri 8am–5pm, Saturday by appointment'),
     'license' => env('BUSINESS_LICENSE', 'Licensed & Insured'),
     'social' => [
         'instagram' => env('BUSINESS_INSTAGRAM_URL'),

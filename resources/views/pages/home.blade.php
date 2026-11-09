@@ -4,109 +4,85 @@
 
 <x-layouts.marketing>
     {{-- Hero --}}
-    <section class="relative overflow-hidden bg-navy text-white">
-        <x-marketing.tile-pattern class="pointer-events-none absolute -right-24 -top-24 size-[32rem] text-white/10" />
+    <section class="relative flex min-h-[max(82vh,680px)] items-end justify-center overflow-hidden bg-[#111] text-center text-white">
+        <img
+            src="{{ asset('images/gallery/herringbone.jpg') }}"
+            alt="Bathroom with a dark gray herringbone tile floor."
+            class="absolute inset-0 size-full object-cover"
+            style="object-position: center 62%"
+        >
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(8,8,8,0.78) 0%, rgba(8,8,8,0.38) 28%, rgba(8,8,8,0.04) 55%, rgba(8,8,8,0.16) 100%)"></div>
 
-        <div class="relative mx-auto max-w-6xl px-6 py-24 lg:px-8 lg:py-32">
-            <div class="max-w-2xl">
-                <p class="font-display text-sm font-semibold uppercase tracking-[0.2em] text-brass-light">
-                    {{ config('business.license') }}
-                </p>
-                <h1 class="mt-4 font-display text-4xl font-semibold leading-tight sm:text-5xl lg:text-6xl">
-                    High-End Tile Work, Installed with Precision
-                </h1>
-                <p class="mt-6 text-lg leading-relaxed text-zinc-300">
-                    {{ config('business.name') }} designs and installs custom tile for kitchens, bathrooms,
-                    floors, and outdoor living spaces across {{ config('business.service_area') }}.
-                    Clean lines, tight grout joints, and work that lasts.
-                </p>
-                <div class="mt-10 flex flex-col gap-4 sm:flex-row">
-                    <a
-                        href="{{ route('contact') }}"
-                        class="rounded-full bg-brass px-8 py-3.5 text-center text-sm font-semibold text-navy transition hover:bg-brass-light"
-                    >
-                        Get a Free Quote
-                    </a>
-                    <a
-                        href="{{ route('gallery') }}"
-                        class="rounded-full border border-white/30 px-8 py-3.5 text-center text-sm font-semibold text-white transition hover:border-white/60"
-                    >
-                        View Our Work
-                    </a>
-                </div>
+        <div class="relative z-10 w-full max-w-[860px] px-6 py-16 sm:px-6">
+            <p class="kicker" style="color: rgba(255,255,255,0.82)">{{ config('business.license') }}</p>
+            <h1 class="mx-auto max-w-[16ch] font-display text-[clamp(40px,5.4vw,72px)] leading-[1.05] tracking-[0.04em]">Material first.</h1>
+            <p class="mx-auto mt-4 max-w-[32rem]" style="color: #f4f4f2">
+                Porcelain, stone, and mosaic, laid by {{ config('business.name') }}'s own crew. Kitchens, bathrooms, floors, and outdoor spaces across {{ config('business.service_area') }}. No subcontracted labor.
+            </p>
+            <div class="mt-6 flex flex-wrap justify-center gap-[10px]">
+                <a href="{{ route('contact') }}#quote" class="btn-hairline fill">Request a quote</a>
+                <a href="{{ route('gallery') }}" class="btn-hairline on-photo">View the gallery</a>
             </div>
+            <p class="mt-5 text-[11px] tracking-[0.16em] uppercase" style="color: rgba(255,255,255,0.72)">Stock photo behind the title. Not an Ervin job.</p>
         </div>
     </section>
 
-    {{-- Trust bar --}}
-    <section class="border-b border-zinc-200 bg-white">
-        <div class="mx-auto grid max-w-6xl grid-cols-2 gap-8 px-6 py-10 text-center lg:grid-cols-4 lg:px-8">
-            @foreach ([
-                'Licensed & Insured' => 'Full coverage on every job',
-                'Free Estimates' => 'No-pressure, on-site quotes',
-                'Craftsman-Led Crews' => 'No subcontracted labor',
-                'Satisfaction Guaranteed' => 'We stand behind our work',
-            ] as $title => $subtitle)
-                <div>
-                    <p class="font-display text-base font-semibold text-navy">{{ $title }}</p>
-                    <p class="mt-1 text-sm text-zinc-500">{{ $subtitle }}</p>
-                </div>
+    {{-- Services teaser --}}
+    <section class="mx-auto max-w-[880px] px-7 py-[88px] text-center" aria-labelledby="what">
+        <p class="kicker" id="what">What we install</p>
+        <h2 class="font-display text-[clamp(32px,4vw,48px)] tracking-[0.04em]">Six kinds of work.</h2>
+        <div class="names mt-9">
+            @foreach ($services as $service)
+                <a href="{{ route('services') }}#{{ $service['slug'] }}">
+                    <h3 class="font-display">{{ $service['title'] }}</h3>
+                    <p>{{ $service['summary'] }}</p>
+                </a>
             @endforeach
         </div>
     </section>
 
-    {{-- Services overview --}}
-    <section class="bg-stone py-20 sm:py-28">
-        <div class="mx-auto max-w-6xl px-6 lg:px-8">
-            <div class="max-w-2xl">
-                <h2 class="font-display text-3xl font-semibold text-navy sm:text-4xl">What We Do</h2>
-                <p class="mt-4 text-zinc-600">
-                    From a single backsplash to a full home renovation, every project gets the same level of
-                    craftsmanship and attention to detail.
-                </p>
-            </div>
-
-            <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                @foreach ($services as $service)
-                    <a
-                        href="{{ route('services') }}#{{ $service['slug'] }}"
-                        class="group rounded-2xl border border-zinc-200 bg-white p-6 transition hover:border-brass hover:shadow-lg"
-                    >
-                        <h3 class="font-display text-lg font-semibold text-navy">{{ $service['title'] }}</h3>
-                        <p class="mt-2 text-sm leading-relaxed text-zinc-600">{{ $service['summary'] }}</p>
-                        <span class="mt-4 inline-flex items-center text-sm font-semibold text-accent-content">
-                            Learn more
-                            <svg class="ml-1 size-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-                            </svg>
-                        </span>
-                    </a>
-                @endforeach
-            </div>
+    {{-- How it works teaser --}}
+    <section class="mx-auto max-w-[880px] px-7 py-[88px] text-center" aria-labelledby="how">
+        <p class="kicker" id="how">The sequence</p>
+        <h2 class="font-display text-[clamp(32px,4vw,48px)] tracking-[0.04em]">How a project comes together.</h2>
+        <div class="steps-grid mt-9">
+            <article>
+                <span>01</span>
+                <h3>Consultation</h3>
+                <p>We walk the space, talk through your goals, and scope the project together.</p>
+            </article>
+            <article>
+                <span>02</span>
+                <h3>Design &amp; materials</h3>
+                <p>Pick patterns, tile, and finishes. We'll guide you if you want recommendations.</p>
+            </article>
+            <article>
+                <span>03</span>
+                <h3>Installation</h3>
+                <p>Our crew preps the substrate and installs with precise layout and spacing.</p>
+            </article>
+            <article>
+                <span>04</span>
+                <h3>Final walkthrough</h3>
+                <p>We review the finished work with you and make sure every detail is right.</p>
+            </article>
         </div>
+        <p class="mt-9">
+            <a href="{{ route('how-it-works') }}" class="btn-hairline">See the full process</a>
+        </p>
     </section>
 
-    {{-- Process --}}
-    <section class="bg-navy py-20 text-white sm:py-28">
-        <div class="mx-auto max-w-6xl px-6 lg:px-8">
-            <h2 class="font-display text-3xl font-semibold sm:text-4xl">How a Project Comes Together</h2>
-
-            <div class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
-                @foreach ([
-                    ['Consultation', 'We walk the space, talk through your goals, and scope the project together.'],
-                    ['Design & Materials', 'Pick patterns, tile, and finishes — we\'ll guide you if you want recommendations.'],
-                    ['Installation', 'Our crew preps the substrate properly and installs with precise layout and spacing.'],
-                    ['Final Walkthrough', 'We review the finished work with you and make sure every detail is right.'],
-                ] as $index => [$title, $copy])
-                    <div>
-                        <span class="font-display text-sm font-semibold text-brass-light">0{{ $index + 1 }}</span>
-                        <h3 class="mt-2 font-display text-lg font-semibold">{{ $title }}</h3>
-                        <p class="mt-2 text-sm leading-relaxed text-zinc-300">{{ $copy }}</p>
-                    </div>
-                @endforeach
-            </div>
+    {{-- Quote --}}
+    <section class="border-t border-ink" id="quote">
+        <div class="mx-auto max-w-[680px] px-7 py-[88px] text-center">
+            <p class="kicker">Free estimate</p>
+            <h2 class="font-display text-[clamp(32px,4vw,48px)] tracking-[0.04em]">Tell us about the room.</h2>
+            <p class="mt-4">No-pressure, on-site quotes. {{ config('business.license') }}. {{ config('business.hours') }}.</p>
+            <p class="mt-6"><a href="tel:{{ config('business.phone_tel') }}" class="font-display text-[clamp(32px,4vw,48px)] tracking-[0.04em] text-ink no-underline">{{ config('business.phone') }}</a></p>
+            <p class="mt-2"><a href="mailto:{{ config('business.email') }}" class="text-ink">{{ config('business.email') }}</a></p>
+            <p class="mt-6 text-sm text-muted">
+                <a href="{{ route('contact') }}#quote" class="underline underline-offset-4">Send the full request form on the Contact page &rarr;</a>
+            </p>
         </div>
     </section>
-
-    <x-marketing.cta-band />
 </x-layouts.marketing>

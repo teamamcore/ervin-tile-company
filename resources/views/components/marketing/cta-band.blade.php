@@ -1,14 +1,12 @@
-@props(['title' => 'Ready to Start Your Project?', 'description' => "Tell us about your space and we'll put together a free, no-obligation quote."])
+@props(['title' => 'Tell us about the room.', 'description' => "No-pressure, on-site quotes. ".config('business.license').'.'])
 
-<section class="bg-brass">
-    <div class="mx-auto max-w-6xl px-6 py-16 text-center lg:px-8">
-        <h2 class="font-display text-3xl font-semibold text-navy sm:text-4xl">{{ $title }}</h2>
-        <p class="mx-auto mt-4 max-w-xl text-navy/80">{{ $description }}</p>
-        <a
-            href="{{ route('contact') }}"
-            class="mt-8 inline-block rounded-full bg-navy px-8 py-3.5 text-sm font-semibold text-white transition hover:bg-navy-light"
-        >
-            Request a Free Quote
-        </a>
+<section class="border-t border-ink">
+    <div class="mx-auto max-w-[680px] px-7 py-[88px] text-center">
+        <p class="kicker">Free estimate</p>
+        <h2 class="font-display text-[clamp(32px,4vw,48px)] tracking-[0.04em]">{{ $title }}</h2>
+        <p class="mt-4 text-muted">{{ $description }}</p>
+        <p class="mt-8">
+            <a href="{{ route('contact') }}#quote" class="btn-hairline">Request a quote</a>
+        </p>
     </div>
 </section>

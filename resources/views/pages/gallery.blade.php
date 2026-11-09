@@ -1,49 +1,73 @@
 @php
-    $categories = [
-        ['title' => 'Kitchen Backsplashes', 'tone' => 'bg-navy text-white'],
-        ['title' => 'Bathrooms & Showers', 'tone' => 'bg-brass text-navy'],
-        ['title' => 'Flooring', 'tone' => 'bg-zinc-800 text-white'],
-        ['title' => 'Outdoor & Patio', 'tone' => 'bg-brass-light text-navy'],
-        ['title' => 'Mosaics & Custom Designs', 'tone' => 'bg-navy-light text-white'],
-        ['title' => 'Repair & Regrouting', 'tone' => 'bg-zinc-700 text-white'],
+    $shots = [
+        ['cat' => 'baths', 'img' => 'shower-marble.jpg', 'alt' => 'Large-format marble-look shower with subway wainscot and hex niches.', 'title' => 'Large-format shower', 'caption' => 'Marble-look slabs, subway wainscot, hex floor and niches. Stock photo.'],
+        ['cat' => 'floors', 'img' => 'herringbone.jpg', 'alt' => 'Bathroom with a dark gray herringbone tile floor.', 'title' => 'Herringbone floor', 'caption' => 'A dark herringbone floor in a bath. Stock photo.'],
+        ['cat' => 'baths', 'img' => 'shower-mosaic.jpg', 'alt' => 'White stacked-tile shower with a gray penny-mosaic floor.', 'title' => 'Penny-floor shower', 'caption' => 'Stacked wall tile with a penny mosaic floor. Stock photo.'],
+        ['cat' => 'kitchens', 'img' => 'kitchen-hex.jpg', 'alt' => 'Navy hex mosaic backsplash in a white kitchen.', 'title' => 'Kitchen backsplash', 'caption' => 'Hex mosaic behind the range. Stock photo.'],
+        ['cat' => 'baths', 'img' => 'subway-accent.jpg', 'alt' => 'White subway-tile shower with a black patterned accent strip and a hex floor.', 'title' => 'Patterned shower', 'caption' => 'Subway field with a decorative accent strip. Stock photo.'],
+        ['cat' => 'baths', 'img' => 'shower-glass.jpg', 'alt' => 'Shower with stacked stone walls, a linear mosaic stripe, and a pebble floor and niche.', 'title' => 'Stone shower', 'caption' => 'Stacked wall tile, linear mosaic, pebble floor and niche. Stock photo.'],
+        ['cat' => 'floors', 'img' => 'floor-terra.jpg', 'alt' => 'Kitchen with a square terracotta tile floor.', 'title' => 'Square floor tile', 'caption' => 'Terracotta squares through a kitchen. Stock photo.'],
+        ['cat' => 'outdoor', 'img' => 'floor-amphora.jpg', 'alt' => 'Covered outdoor walk paved with large square tile.', 'title' => 'Covered patio', 'caption' => 'Large squares on a covered outdoor walk. Stock photo.'],
+        ['cat' => 'outdoor', 'img' => 'pool-deck.jpg', 'alt' => 'Pool edge with terracotta coping and a pale tiled deck.', 'title' => 'Pool deck', 'caption' => 'Deck tile and coping at the waterline. Stock photo.'],
+        ['cat' => 'mosaics', 'img' => 'mosaic-green.jpg', 'alt' => 'Curved shower wrapped in small green and white mosaic tile.', 'title' => 'Mosaic shower', 'caption' => 'Small-format mosaic wrapping a curved shower. Stock photo.'],
+        ['cat' => 'mosaics', 'img' => 'bath-mosaic.jpg', 'alt' => 'Compact bathroom with floor-to-ceiling brown mosaic tile.', 'title' => 'Full mosaic bath', 'caption' => 'Wall-to-wall mosaic in a compact bath. Stock photo.'],
+        ['cat' => 'prep', 'img' => 'prep.jpg', 'alt' => 'Linear drain set into mosaic tile beside a band of blue waterproofing.', 'title' => 'Before the tile', 'caption' => 'Waterproofing and a linear drain, before the finish goes down. Stock photo.'],
+    ];
+
+    $filters = [
+        'all' => 'All',
+        'kitchens' => 'Kitchens',
+        'baths' => 'Baths',
+        'floors' => 'Floors',
+        'outdoor' => 'Outdoor',
+        'mosaics' => 'Mosaics',
+        'prep' => 'Underneath',
     ];
 @endphp
 
 <x-layouts.marketing>
     <x-marketing.page-header
         eyebrow="Gallery"
-        title="Our Work"
-        description="A look at the kind of tile work we do. Full project photos are on the way — in the meantime, reach out and we're happy to walk you through recent jobs."
+        title="One room at a time."
+        description="Every picture is a free stock photo. None of them are Ervin Tile jobs. They stand in so the layout can be judged, and they come out when the company's own work is ready."
     />
 
-    <section class="bg-stone py-20 sm:py-28">
-        <div class="mx-auto max-w-6xl px-6 lg:px-8">
-            <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-                @foreach ($categories as $category)
-                    <div class="group relative aspect-square overflow-hidden rounded-2xl {{ $category['tone'] }}">
-                        <x-marketing.tile-pattern class="absolute inset-0 size-full p-6 opacity-70 transition group-hover:scale-105 group-hover:opacity-90" />
-                        <div class="absolute inset-0 flex items-end bg-gradient-to-t from-black/50 via-transparent to-transparent p-6">
-                            <h3 class="font-display text-lg font-semibold">{{ $category['title'] }}</h3>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
+    <div class="filters" role="toolbar" aria-label="Filter gallery">
+        @foreach ($filters as $key => $label)
+            <button type="button" data-filter="{{ $key }}" aria-pressed="{{ $key === 'all' ? 'true' : 'false' }}">{{ $label }}</button>
+        @endforeach
+    </div>
 
-            <div class="mt-14 rounded-2xl border border-dashed border-zinc-300 bg-white p-8 text-center">
-                <p class="font-display text-lg font-semibold text-navy">Project photos coming soon</p>
-                <p class="mx-auto mt-2 max-w-xl text-sm text-zinc-600">
-                    We're putting together a full photo gallery of completed installations. Want to see examples
-                    now? Get in touch and we'll send over recent project photos directly.
-                </p>
-                <a
-                    href="{{ route('contact') }}"
-                    class="mt-6 inline-block rounded-full bg-navy px-6 py-3 text-sm font-semibold text-white transition hover:bg-navy-light"
-                >
-                    Ask to See Our Portfolio
-                </a>
-            </div>
-        </div>
+    <div class="mx-auto mb-10 max-w-[1100px] px-7 pt-3 pb-5">
+        @foreach ($shots as $shot)
+            <figure class="shot" data-cat="{{ $shot['cat'] }}">
+                <img src="{{ asset('images/gallery/'.$shot['img']) }}" alt="{{ $shot['alt'] }}">
+                <h2>{{ $shot['title'] }}</h2>
+                <p>{{ $shot['caption'] }}</p>
+            </figure>
+        @endforeach
+    </div>
+
+    <section class="border-t border-line px-7 py-10 text-center text-sm text-muted">
+        Stock photos only. Swap them for Ervin jobs before this goes anywhere public.
     </section>
 
     <x-marketing.cta-band />
+
+    @push('scripts')
+        <script>
+            const buttons = document.querySelectorAll("[data-filter]");
+            const shots = document.querySelectorAll(".shot");
+            function applyFilter(cat) {
+                const name = [...buttons].some((b) => b.dataset.filter === cat) ? cat : "all";
+                buttons.forEach((b) => b.setAttribute("aria-pressed", b.dataset.filter === name ? "true" : "false"));
+                shots.forEach((s) => { s.hidden = name !== "all" && s.dataset.cat !== name; });
+            }
+            buttons.forEach((b) => b.addEventListener("click", () => {
+                applyFilter(b.dataset.filter);
+                history.replaceState(null, "", b.dataset.filter === "all" ? location.pathname : "#" + b.dataset.filter);
+            }));
+            applyFilter((location.hash || "#all").slice(1));
+        </script>
+    @endpush
 </x-layouts.marketing>
